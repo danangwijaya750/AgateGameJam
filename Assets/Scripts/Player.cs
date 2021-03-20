@@ -10,8 +10,11 @@ public class Player : MonoBehaviour, DefaultControl.IGameplayActions
     [SerializeField, Range(0,10)]
     private float movementSpeed = 5f;
 
+    [SerializeField, Range(5, 90)]
+    private float turnSpeed = 15f;
+
     private DefaultControl inputs;
-    private Vector2 movement = new Vector2();
+    private Vector2 movementInput = new Vector2();
 
     private void Awake() {
         inputs = new DefaultControl();
@@ -20,12 +23,18 @@ public class Player : MonoBehaviour, DefaultControl.IGameplayActions
     }
 
     private void FixedUpdate() {
-        var target = transform.position + new Vector3(movement.x, 0, movement.y);
+        var playerMovement = new Vector3(movementInput.x, 0, movementInput.y);
+        var target = transform.position + playerMovement;
+        if (playerMovement != Vector3.zero)
+        {
+            var direction = playerMovement.normalized;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), turnSpeed);
+        }
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * movementSpeed);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movement = context.ReadValue<Vector2>();
+        movementInput = context.ReadValue<Vector2>();
     }
 }
