@@ -12,9 +12,10 @@ public class Shade : MonoBehaviour
     [SerializeField]
     private float delay = 1.5f;
 
-    private Queue<Action> dynamicAction = new Queue<Action>();
-    private Queue<Action> physicsAction = new Queue<Action>();
+    private Queue<Action> attackActions = new Queue<Action>();
+    private Queue<Action> movementActions = new Queue<Action>();
     private Animator animator;
+    private PlayerAnimation animEvent;
     private readonly int attackAnimId = Animator.StringToHash("attack");
     private readonly int movementAnimId = Animator.StringToHash("movement");
     private bool onDelay = true;
@@ -25,6 +26,7 @@ public class Shade : MonoBehaviour
         player.Attack += OnAttack;
         player.Move += OnMove;
         yield return new WaitForSeconds(delay);
+        yield return new WaitForFixedUpdate();
         onDelay = false;
     }
 
@@ -33,14 +35,15 @@ public class Shade : MonoBehaviour
         if (!performed)
         {
             void doNothing() {}
-            dynamicAction.Enqueue(doNothing);
+            attackActions.Enqueue(doNothing);
             return;
         }
+
         void attack()
         {
             animator.SetTrigger(attackAnimId);
         }
-        dynamicAction.Enqueue(attack);
+        attackActions.Enqueue(attack);
     }
 
     private void OnMove(Vector3 movement)
@@ -57,21 +60,16 @@ public class Shade : MonoBehaviour
             }
             transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * player.MovementSpeed);
         }
-        physicsAction.Enqueue(move);
-    }
-
-    private void Update() 
-    {
-        if (onDelay) return;
-        if (dynamicAction.Count <= 0) return;
-        dynamicAction.Dequeue()?.Invoke();
+        movementActions.Enqueue(move);
     }
 
     private void FixedUpdate() 
     {
         if (onDelay) return;
-        if (physicsAction.Count <= 0) return;
-        physicsAction.Dequeue()?.Invoke();
+        if (attackActions.Count <= 0) return;
+        if (movementActions.Count <= 0) return;
+        attackActions.Dequeue()?.Invoke();
+        movementActions.Dequeue()?.Invoke();
     }
 
 }
