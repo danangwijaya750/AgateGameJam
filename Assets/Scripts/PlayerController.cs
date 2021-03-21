@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
                 inputs = new Player1Control();
                 if (Gamepad.all.Count > 0)
                 {
+                    Debug.Log("Hey");
                     var user = InputUser.PerformPairingWithDevice(Gamepad.all[0]);
                     user.AssociateActionsWithUser(inputs.InputAction);
                     user.ActivateControlScheme("Gamepad");
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            Debug.Log("Hello there");
             attackInput = true;
         }
     }
