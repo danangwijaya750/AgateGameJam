@@ -103,6 +103,8 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), turnSpeed);
         }
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * movementSpeed);
+
+
     }
 
     private void Reset() {

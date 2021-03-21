@@ -12,6 +12,9 @@ public class Shade : MonoBehaviour
     [SerializeField]
     private float delay = 1.5f;
 
+    [SerializeField]
+    private HitBox hitBox = null;
+
     private Queue<Action> attackActions = new Queue<Action>();
     private Queue<Action> movementActions = new Queue<Action>();
     private Animator animator;
@@ -23,8 +26,12 @@ public class Shade : MonoBehaviour
     IEnumerator Start()
     {
         animator = GetComponentInChildren<Animator>();
+        animator.TryGetComponent(out animEvent);
         player.Attack += OnAttack;
         player.Move += OnMove;
+        animEvent.OnSlashStart += OnSlashStart;
+        animEvent.OnSlashEnd += OnSlashEnd;
+        hitBox.Hit += OnHit;
         yield return new WaitForSeconds(delay);
         yield return new WaitForFixedUpdate();
         onDelay = false;
@@ -61,6 +68,21 @@ public class Shade : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * player.MovementSpeed);
         }
         movementActions.Enqueue(move);
+    }
+
+    private void OnSlashStart()
+    {
+        hitBox.gameObject.SetActive(true);
+    }
+
+    private void OnSlashEnd()
+    {
+        hitBox.gameObject.SetActive(false);
+    }
+
+    private void OnHit()
+    {
+        Debug.Log("Hit!");
     }
 
     private void FixedUpdate() 
