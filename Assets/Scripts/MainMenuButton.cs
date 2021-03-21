@@ -37,7 +37,12 @@ public class MainMenuButton : MonoBehaviour
    }
    public void startGame(){
        Debug.Log("mode "+session.GameMode);
-        SceneManager.LoadScene("TestScene",LoadSceneMode.Single);
+       SceneLoader loader =new  SceneLoader();
+        if(session.GameMode==0){
+            loader.LoadScene("SingleplayerScene");
+        }else{
+            loader.LoadScene("MultiplayerScene");
+        }
    }
    public void showHowToPlay(){
         panelHowToPlay.SetActive(true);
