@@ -21,6 +21,11 @@ public class Player1Control : IPlayerControl, Player1InputAction.IGameplayAction
         inputAction.Enable();
     }
 
+    public void Disable()
+    {
+        inputAction.Disable();
+    }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         Attack?.Invoke(context);
