@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     public float TurnSpeed => turnSpeed;
 
     public event Action<Vector3> Move;
-    public event Action Attack;
+    public event Action<bool> Attack;
     
     [SerializeField, Range(0,10)]
     private float movementSpeed = 5f;
@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
         movementEnabled = true;
     }
 
+    private void Update() 
+    {
+        Attack?.Invoke(false);
+    }
+
     private void FixedUpdate() 
     {
         if (!movementEnabled) 
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Attack?.Invoke();
+            Attack?.Invoke(true);
             animator.SetTrigger(attackAnimId);
         }
     }
