@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Properties/Preferences/DefaultControl.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Properties/Preferences/Player1InputAction.inputactions'
 
 using System;
 using System.Collections;
@@ -8,13 +8,13 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace ControlMap
 {
-    public class @DefaultControl : IInputActionCollection, IDisposable
+    public class @Player1InputAction : IInputActionCollection, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @DefaultControl()
+        public @Player1InputAction()
         {
             asset = InputActionAsset.FromJson(@"{
-    ""name"": ""DefaultControl"",
+    ""name"": ""Player1InputAction"",
     ""maps"": [
         {
             ""name"": ""Gameplay"",
@@ -44,7 +44,7 @@ namespace ControlMap
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControl"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -66,7 +66,7 @@ namespace ControlMap
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControl"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -77,7 +77,7 @@ namespace ControlMap
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControl"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -88,7 +88,7 @@ namespace ControlMap
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControl"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -99,7 +99,7 @@ namespace ControlMap
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""DefaultControl"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -107,10 +107,10 @@ namespace ControlMap
                 {
                     ""name"": """",
                     ""id"": ""1416fbaf-5562-42ac-b33d-fdda1aa607cd"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -121,7 +121,7 @@ namespace ControlMap
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -131,17 +131,23 @@ namespace ControlMap
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""DefaultControl"",
-            ""bindingGroup"": ""DefaultControl"",
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
                 {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 }
             ]
@@ -205,8 +211,8 @@ namespace ControlMap
         private readonly InputAction m_Gameplay_Attack;
         public struct GameplayActions
         {
-            private @DefaultControl m_Wrapper;
-            public GameplayActions(@DefaultControl wrapper) { m_Wrapper = wrapper; }
+            private @Player1InputAction m_Wrapper;
+            public GameplayActions(@Player1InputAction wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Gameplay_Move;
             public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
@@ -238,13 +244,22 @@ namespace ControlMap
             }
         }
         public GameplayActions @Gameplay => new GameplayActions(this);
-        private int m_DefaultControlSchemeIndex = -1;
-        public InputControlScheme DefaultControlScheme
+        private int m_KeyboardSchemeIndex = -1;
+        public InputControlScheme KeyboardScheme
         {
             get
             {
-                if (m_DefaultControlSchemeIndex == -1) m_DefaultControlSchemeIndex = asset.FindControlSchemeIndex("DefaultControl");
-                return asset.controlSchemes[m_DefaultControlSchemeIndex];
+                if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+                return asset.controlSchemes[m_KeyboardSchemeIndex];
+            }
+        }
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
+        {
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
         public interface IGameplayActions

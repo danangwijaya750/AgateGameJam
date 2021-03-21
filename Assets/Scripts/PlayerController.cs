@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using ControlMap;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
-public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
+public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed => movementSpeed;
     public float TurnSpeed => turnSpeed;
@@ -22,7 +23,10 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     [SerializeField]
     private PlayerAnimation animEvent = null;
 
-    private DefaultControl inputs;
+    [SerializeField]
+    private PlayerEnum playerNumber = PlayerEnum.Player1;
+
+    private IPlayerControl inputs;
     private Vector2 movementInput = new Vector2();
     private Animator animator = null;
     private readonly int movementAnimId = Animator.StringToHash("movement");
@@ -33,9 +37,32 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     private void Awake() 
     {
         transform.GetChild(0).TryGetComponent(out animator);
-        inputs = new DefaultControl();
+        switch (playerNumber)
+        {
+            case PlayerEnum.Player1:
+                inputs = new Player1Control();
+                if (Gamepad.all.Count > 0)
+                {
+                    var user = InputUser.PerformPairingWithDevice(Gamepad.all[0]);
+                    user.AssociateActionsWithUser(inputs.InputAction);
+                    user.ActivateControlScheme("Gamepad");
+                }
+                break;
+            case PlayerEnum.Player2:
+                inputs = new Player2Control();
+                if (Gamepad.all.Count > 1)
+                {
+                    var user = InputUser.PerformPairingWithDevice(Gamepad.all[1]);
+                    user.AssociateActionsWithUser(inputs.InputAction);
+                    user.ActivateControlScheme("Gamepad");
+                }
+                break;
+            default:
+                break;
+        }
         inputs.Enable();
-        inputs.Gameplay.SetCallbacks(this);
+        inputs.Move += OnMove;
+        inputs.Attack += OnAttack;
         animEvent.OnAttackStart += OnAttackStart;
         animEvent.OnAttackEnd += OnAttackEnd;
     }
