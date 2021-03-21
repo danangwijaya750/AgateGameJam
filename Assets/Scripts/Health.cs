@@ -43,13 +43,6 @@ public class Health : MonoBehaviour
         currentHealth -= amount;
         var targetHealth = Mathf.Max(currentHealth, 0);
         StartCoroutine(AnimateHealthChange(targetHealth));
-        if (currentHealth <= 0)
-        {
-            Destroy(Instantiate(explosion, explosionSpawnPoint.position, Quaternion.identity), 2);
-            impulseSource.GenerateImpulse(explosionForce);
-            Die?.Invoke();
-            Destroy(gameObject);
-        }
     }
 
     IEnumerator AnimateHealthChange(float target)
@@ -62,5 +55,12 @@ public class Health : MonoBehaviour
             yield return null;
         }
         while (t <= 1);
+        if (currentHealth <= 0)
+        {
+            Destroy(Instantiate(explosion, explosionSpawnPoint.position, Quaternion.identity), 2);
+            impulseSource.GenerateImpulse(explosionForce);
+            Die?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }
