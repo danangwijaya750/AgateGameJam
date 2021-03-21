@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 479934962522441278}
   - component: {fileID: 479934962522441277}
   - component: {fileID: 2590877456686010075}
+  - component: {fileID: 7128308969792302158}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -94,8 +95,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  explosion: {fileID: 6450562240796241788, guid: efeb72791eea90542b8917646edb1148,
+    type: 3}
+  explosionSpawnPoint: {fileID: 555952780528369638}
+  explosionForce: 2
   healthBar: {fileID: 0}
   animationSpeed: 0.5
+--- !u!114 &7128308969792302158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479934962522441265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
 --- !u!95 &479934963273151192
 Animator:
   serializedVersion: 3
@@ -1043,6 +1090,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 479934962210399263}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &555952780528369638 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 80561584499317753, guid: 72fa0fb66fcbc20a79b26479b75777d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 479934962210399263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1063761961667998551 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8617022641177602232, guid: 72fa0fb66fcbc20a79b26479b75777d4,
@@ -1056,6 +1109,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1063761961667998551}
     m_Modifications:
+    - target: {fileID: -9089251081239633261, guid: d18a73d8eebcc3a4ebbae9b3027b2488,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -7098565394360792512, guid: d18a73d8eebcc3a4ebbae9b3027b2488,
+        type: 3}
     - target: {fileID: -8679921383154817045, guid: d18a73d8eebcc3a4ebbae9b3027b2488,
         type: 3}
       propertyPath: m_RootOrder

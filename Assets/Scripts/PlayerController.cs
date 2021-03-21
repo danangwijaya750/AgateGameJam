@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed => movementSpeed;
     public float TurnSpeed => turnSpeed;
+    public IPlayerControl Inputs => inputs;
 
     public event Action<Vector3> Move;
     public event Action<bool> Attack;

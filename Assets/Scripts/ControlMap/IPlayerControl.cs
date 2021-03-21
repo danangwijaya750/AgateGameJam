@@ -7,6 +7,7 @@ public interface IPlayerControl
     event Action<InputAction.CallbackContext> Move;
     event Action<InputAction.CallbackContext> Attack;
     void Enable();
+    void Disable();
     void OnMove(InputAction.CallbackContext context);
     void OnAttack(InputAction.CallbackContext context);
 }
