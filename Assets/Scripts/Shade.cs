@@ -12,7 +12,8 @@ public class Shade : MonoBehaviour
     [SerializeField]
     private float delay = 1.5f;
 
-    private Queue<Action> actions = new Queue<Action>();
+    private Queue<Action> dynamicAction = new Queue<Action>();
+    private Queue<Action> physicsAction = new Queue<Action>();
     private Animator animator;
     private readonly int attackAnimId = Animator.StringToHash("attack");
     private readonly int movementAnimId = Animator.StringToHash("movement");
@@ -27,13 +28,19 @@ public class Shade : MonoBehaviour
         onDelay = false;
     }
 
-    private void OnAttack()
+    private void OnAttack(bool performed)
     {
+        if (!performed)
+        {
+            void doNothing() {}
+            dynamicAction.Enqueue(doNothing);
+            return;
+        }
         void attack()
         {
             animator.SetTrigger(attackAnimId);
         }
-        actions.Enqueue(attack);
+        dynamicAction.Enqueue(attack);
     }
 
     private void OnMove(Vector3 movement)
@@ -50,14 +57,21 @@ public class Shade : MonoBehaviour
             }
             transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * player.MovementSpeed);
         }
-        actions.Enqueue(move);
+        physicsAction.Enqueue(move);
+    }
+
+    private void Update() 
+    {
+        if (onDelay) return;
+        if (dynamicAction.Count <= 0) return;
+        dynamicAction.Dequeue()?.Invoke();
     }
 
     private void FixedUpdate() 
     {
         if (onDelay) return;
-        if (actions.Count <= 0) return;
-        actions.Dequeue()?.Invoke();
+        if (physicsAction.Count <= 0) return;
+        physicsAction.Dequeue()?.Invoke();
     }
 
 }
