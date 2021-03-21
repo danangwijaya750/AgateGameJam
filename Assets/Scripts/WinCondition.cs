@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinCondition : MonoBehaviour
 {
@@ -9,11 +10,16 @@ public class WinCondition : MonoBehaviour
     
     [SerializeField]
     private GameObject winPanel = null;
+    
+    [SerializeField]
+    private GameObject losePanel = null;
 
-    private Transform target = null;
+    [SerializeField]
+    private Health target = null;
 
     private void Awake() 
     {
+        target.Die += OnLose;
         foreach (var enemy in enemies)
         {
             enemy.Die += () => OnDie(enemy);
@@ -24,7 +30,7 @@ public class WinCondition : MonoBehaviour
     {
         if (target == null) return;
         if (enemies.Count > 0) return;
-        var distance = Vector3.Distance(transform.position, target.position);
+        var distance = Vector3.Distance(transform.position, target.transform.position);
         if (distance > 1) return;
 
         winPanel.SetActive(true);
@@ -34,24 +40,17 @@ public class WinCondition : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
-    {
-        if (other.CompareTag("Player"))
-        {
-            target = other.transform;
-        }
-    }
-
-    private void OnTriggerExit(Collider other) 
-    {
-        if (other.CompareTag("Player"))
-        {
-            target = null;
-        }
-    }
-
     private void OnDie(Health enemy)
     {
         enemies.Remove(enemy);
+    }
+
+    private void OnLose()
+    {
+        losePanel.SetActive(true);
+        if (target.TryGetComponent(out PlayerController control))
+        {
+            control.Inputs.Disable();
+        }
     }
 }

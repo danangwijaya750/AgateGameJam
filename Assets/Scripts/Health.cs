@@ -54,7 +54,7 @@ public class Health : MonoBehaviour
             float t = 0;
             do
             {
-                healthBar.value = Mathf.Lerp(healthBar.value, target/maxHealth, t);
+                healthBar.value = Mathf.Lerp(healthBar.value, target, t);
                 t += Time.deltaTime / animationSpeed;
                 yield return null;
             }
