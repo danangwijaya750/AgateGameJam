@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
         var target = transform.position + playerMovement;
         var movementValue = Mathf.Abs(playerMovement.normalized.x)+Mathf.Abs(playerMovement.normalized.z);
         animator.SetFloat(movementAnimId, movementValue);
-        if (playerMovement != Vector3.zero)
+        if (Vector3.Distance(transform.position, target) > 0)
         {
             var direction = playerMovement.normalized;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), turnSpeed);
