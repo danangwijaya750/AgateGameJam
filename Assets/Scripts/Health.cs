@@ -2,13 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
+using System;
 
 public class Health : MonoBehaviour
 {
     public float CurrentHealth => currentHealth;
 
+    public event Action Die;
+
     [SerializeField]
     private float maxHealth = 100f;
+
+    [SerializeField]
+    private GameObject explosion = null;
+
+    [SerializeField]
+    private Transform explosionSpawnPoint = null;
+
+    [SerializeField]
+    private float explosionForce = 1f;
 
     [SerializeField]
     private Slider healthBar = null;
@@ -17,10 +30,12 @@ public class Health : MonoBehaviour
     private float animationSpeed = 0.5f;
 
     private float currentHealth = 100f;
+    private CinemachineImpulseSource impulseSource;
 
     private void Awake() 
     {
         currentHealth = maxHealth;
+        TryGetComponent(out impulseSource);
     }
 
     public void Damage(float amount)
@@ -30,6 +45,9 @@ public class Health : MonoBehaviour
         StartCoroutine(AnimateHealthChange(targetHealth));
         if (currentHealth <= 0)
         {
+            Destroy(Instantiate(explosion, explosionSpawnPoint.position, Quaternion.identity), 2);
+            impulseSource.GenerateImpulse(explosionForce);
+            Die?.Invoke();
             Destroy(gameObject);
         }
     }

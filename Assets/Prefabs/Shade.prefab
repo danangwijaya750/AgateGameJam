@@ -168,7 +168,7 @@ MonoBehaviour:
   player: {fileID: 0}
   delay: 1.5
   hitBox: {fileID: 8959492970441489737}
-  distanceToDamageRatio: 5
+  distanceToDamageRatio: 10
   sword: {fileID: 4785795488936169155}
 --- !u!1001 &8990835412902441302
 PrefabInstance:

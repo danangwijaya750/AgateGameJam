@@ -36,6 +36,8 @@ public class Shade : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         animator.TryGetComponent(out animEvent);
         sword.TryGetComponent(out swordRenderer);
+        player.TryGetComponent(out Health health);
+        health.Die += OnDie;
         baseColor = swordRenderer.materials[1].color;
         player.Attack += OnAttack;
         player.Move += OnMove;
@@ -44,6 +46,11 @@ public class Shade : MonoBehaviour
         hitBox.Hit += OnHit;
         yield return new WaitForSeconds(delay);
         onDelay = false;
+    }
+
+    private void OnDie()
+    {
+        Destroy(gameObject);
     }
 
     private void OnAttack(bool performed)
@@ -100,7 +107,7 @@ public class Shade : MonoBehaviour
     {
         var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         swordRenderer.materials[1].SetColor("_EmissionColor", baseColor * distanceToPlayer);
-        
+
         if (onDelay) return;
         if (attackActions.Count <= 0) return;
         if (movementActions.Count <= 0) return;
