@@ -7,6 +7,7 @@ using System;
 
 public class Health : MonoBehaviour
 {
+    public Slider HealthBar {get => healthBar; set => healthBar = value;}
     public float CurrentHealth => currentHealth;
 
     public event Action Die;
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour
 
     public void Damage(float amount)
     {
+        if (currentHealth <= 0) return;
         currentHealth -= amount;
         var targetHealth = Mathf.Max(currentHealth, 0);
         StartCoroutine(AnimateHealthChange(targetHealth));

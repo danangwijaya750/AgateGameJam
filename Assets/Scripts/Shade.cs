@@ -100,6 +100,7 @@ public class Shade : MonoBehaviour
     {
         var distance = Vector3.Distance(transform.position, player.transform.position);
         var damageAmount = distance * distanceToDamageRatio;
+        if (health.gameObject == player.gameObject) damageAmount *= 2;
         health.Damage(damageAmount);
     }
 
