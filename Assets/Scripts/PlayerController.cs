@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     private Animator animator = null;
     private readonly int movementAnimId = Animator.StringToHash("movement");
     private readonly int attackAnimId = Animator.StringToHash("attack");
-    private bool movementEnabled = true;
+    private bool attacking = false;
+    private bool attackInput = false;
 
     private void Awake() 
     {
@@ -41,22 +42,24 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
 
     private void OnAttackStart()
     {
-        movementEnabled = false;
+        attacking = true;
     }
     
     private void OnAttackEnd()
     {
-        movementEnabled = true;
-    }
-
-    private void Update() 
-    {
-        Attack?.Invoke(false);
+        attacking = false;
     }
 
     private void FixedUpdate() 
     {
-        if (!movementEnabled) 
+        Attack?.Invoke(attackInput);
+        if (attackInput)
+        {
+            animator.SetTrigger(attackAnimId);
+            attackInput = false;
+        }
+
+        if (attacking) 
         {
             Move?.Invoke(Vector3.zero);
             return;
@@ -88,8 +91,7 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Attack?.Invoke(true);
-            animator.SetTrigger(attackAnimId);
+            attackInput = true;
         }
     }
 }
