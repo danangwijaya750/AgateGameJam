@@ -47,14 +47,17 @@ public class Health : MonoBehaviour
 
     IEnumerator AnimateHealthChange(float target)
     {
-        float t = 0;
-        do
+        if (healthBar != null)
         {
-            healthBar.value = Mathf.Lerp(healthBar.value, target/maxHealth, t);
-            t += Time.deltaTime / animationSpeed;
-            yield return null;
+            float t = 0;
+            do
+            {
+                healthBar.value = Mathf.Lerp(healthBar.value, target/maxHealth, t);
+                t += Time.deltaTime / animationSpeed;
+                yield return null;
+            }
+            while (t <= 1);
         }
-        while (t <= 1);
         if (currentHealth <= 0)
         {
             Destroy(Instantiate(explosion, explosionSpawnPoint.position, Quaternion.identity), 2);

@@ -121,7 +121,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            Debug.Log("Hello there");
             attackInput = true;
         }
     }

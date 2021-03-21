@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1431078100628924138}
   - component: {fileID: 4284318992277112558}
   - component: {fileID: 2955422738776357518}
-  - component: {fileID: 185511982300705291}
   m_Layer: 1
   m_Name: Spark (Shuriken)
   m_TagString: Untagged
@@ -4770,7 +4769,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9f5aac4156a897a4a9ea2a6f4c1bc08c, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4823,8 +4821,7 @@ AudioSource:
   m_GameObject: {fileID: 2965290691992134774}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6831650952122213831, guid: cf6a3ab80fa81304dad1712dc3939f12,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b0a6473cc8385c540bc0ccbcbab77b64, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -4911,16 +4908,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &185511982300705291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2965290691992134774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08b18974cc9a73a48a5b7489257c3c78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 1
