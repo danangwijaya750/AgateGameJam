@@ -5,14 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Settings", menuName = "Game Session Settings")]
 public class SessionSettings : ScriptableObject
 {
-    public int Player1Character { get => p1Character; set => p1Character = value; }
-    public int Player2Character { get => p2Character; set => p2Character = value; }
+    public int GameMode { get => gameMode; set => gameMode = value; }
 
     [SerializeField]
     [Min(0)]
-    private int p1Character = 0;
+    private int gameMode = 0;
 
-    [SerializeField]
-    [Min(0)]
-    private int p2Character = 1;
 }

@@ -15,8 +15,7 @@ public class MainMenuButton : MonoBehaviour
 
     private void Awake(){
         if(defaultSettings!=null){
-            session.Player1Character=defaultSettings.Player1Character;
-            session.Player2Character=defaultSettings.Player2Character;
+            session.GameMode=defaultSettings.GameMode;
         }    
     }
 
@@ -26,16 +25,13 @@ public class MainMenuButton : MonoBehaviour
    public void buttonQuitClick(){
 
    }
-   public void SetP1Character(int character){
-       session.Player1Character=character;
-   }
-   public void SetP2Character(int character){
-       session.Player2Character=character;
+   public void SetGameMode(int mode){
+       session.GameMode=mode;
    }
    public void closePanel(){
        panelGameSettings.SetActive(false);
    }
    public void startGame(){
-    
+       Debug.Log("mode "+session.GameMode);
    }
 }
