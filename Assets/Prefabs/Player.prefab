@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 479934962522441279}
   - component: {fileID: 479934962522441278}
   - component: {fileID: 479934962522441277}
+  - component: {fileID: 2590877456686010075}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -80,6 +81,21 @@ MonoBehaviour:
   turnSpeed: 15
   animEvent: {fileID: 479934963273151193}
   playerNumber: 0
+--- !u!114 &2590877456686010075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479934962522441265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bfe85171fb39e4f8e3b3e2f9098418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthBar: {fileID: 0}
+  animationSpeed: 0.5
 --- !u!95 &479934963273151192
 Animator:
   serializedVersion: 3

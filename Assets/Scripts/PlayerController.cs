@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ControlMap;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
@@ -103,8 +104,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), turnSpeed);
         }
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * movementSpeed);
-
-
     }
 
     private void Reset() {

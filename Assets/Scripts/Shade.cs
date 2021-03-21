@@ -15,6 +15,9 @@ public class Shade : MonoBehaviour
     [SerializeField]
     private HitBox hitBox = null;
 
+    [SerializeField]
+    private float distanceToDamageRatio = 1f;
+
     private Queue<Action> attackActions = new Queue<Action>();
     private Queue<Action> movementActions = new Queue<Action>();
     private Animator animator;
@@ -33,7 +36,6 @@ public class Shade : MonoBehaviour
         animEvent.OnSlashEnd += OnSlashEnd;
         hitBox.Hit += OnHit;
         yield return new WaitForSeconds(delay);
-        yield return new WaitForFixedUpdate();
         onDelay = false;
     }
 
@@ -80,9 +82,11 @@ public class Shade : MonoBehaviour
         hitBox.gameObject.SetActive(false);
     }
 
-    private void OnHit()
+    private void OnHit(Health health)
     {
-        Debug.Log("Hit!");
+        var distance = Vector3.Distance(transform.position, player.transform.position);
+        var damageAmount = distance * distanceToDamageRatio;
+        health.Damage(damageAmount);
     }
 
     private void FixedUpdate() 

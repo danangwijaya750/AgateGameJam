@@ -5,13 +5,13 @@ using System;
 
 public class HitBox : MonoBehaviour
 {
-    public event Action Hit;
+    public event Action<Health> Hit;
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent(out Health health))
         {
-            Hit?.Invoke();
+            Hit?.Invoke(health);
         }
     }
 }
