@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ControlMap;
@@ -6,7 +7,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
 {
+    public float MovementSpeed => movementSpeed;
+    public float TurnSpeed => turnSpeed;
 
+    public event Action<Vector3> Move;
+    public event Action Attack;
+    
     [SerializeField, Range(0,10)]
     private float movementSpeed = 5f;
 
@@ -23,7 +29,8 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     private readonly int attackAnimId = Animator.StringToHash("attack");
     private bool movementEnabled = true;
 
-    private void Awake() {
+    private void Awake() 
+    {
         transform.GetChild(0).TryGetComponent(out animator);
         inputs = new DefaultControl();
         inputs.Enable();
@@ -42,10 +49,16 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
         movementEnabled = true;
     }
 
-    private void FixedUpdate() {
-        if (!movementEnabled) return;
+    private void FixedUpdate() 
+    {
+        if (!movementEnabled) 
+        {
+            Move?.Invoke(Vector3.zero);
+            return;
+        }
 
         var playerMovement = new Vector3(movementInput.x, 0, movementInput.y);
+        Move?.Invoke(playerMovement);
         var target = transform.position + playerMovement;
         var movementValue = Mathf.Abs(playerMovement.normalized.x)+Mathf.Abs(playerMovement.normalized.z);
         animator.SetFloat(movementAnimId, movementValue);
@@ -69,6 +82,9 @@ public class PlayerController : MonoBehaviour, DefaultControl.IGameplayActions
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
+        {
+            Attack?.Invoke();
             animator.SetTrigger(attackAnimId);
+        }
     }
 }

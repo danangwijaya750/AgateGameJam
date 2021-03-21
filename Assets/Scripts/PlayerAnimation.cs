@@ -1,7 +1,8 @@
 using UnityEngine;
 using System;
 
-public class PlayerAnimation : MonoBehaviour {
+public class PlayerAnimation : MonoBehaviour 
+{
     public event Action OnAttackStart;
     public event Action OnSlashEnd;
     public event Action OnHit;
