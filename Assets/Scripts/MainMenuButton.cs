@@ -17,6 +17,9 @@ public class MainMenuButton : MonoBehaviour
     [SerializeField]
     private SessionSettings defaultSettings = null;
 
+    [SerializeField]
+    private SceneLoader sceneLoader = null;
+
     private void Awake(){
         if(defaultSettings!=null){
             session.GameMode=defaultSettings.GameMode;
@@ -37,11 +40,10 @@ public class MainMenuButton : MonoBehaviour
    }
    public void startGame(){
        Debug.Log("mode "+session.GameMode);
-       SceneLoader loader =new  SceneLoader();
         if(session.GameMode==0){
-            loader.LoadScene("SingleplayerScene");
+            sceneLoader.LoadScene("SingleplayerScene");
         }else{
-            loader.LoadScene("MultiplayerScene");
+            sceneLoader.LoadScene("MultiplayerScene");
         }
    }
    public void showHowToPlay(){
@@ -50,5 +52,10 @@ public class MainMenuButton : MonoBehaviour
    
    public void closeHowToPlay(){
        panelHowToPlay.SetActive(false);
+   }
+
+   public void Quit()
+   {
+       Application.Quit();
    }
 }
